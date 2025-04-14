@@ -652,6 +652,53 @@ h2:after {
   margin-right: 2px;
 }
 
+/* Rating Component Styles */
+.rating-display {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.rating-display i {
+  color: #ffc107 !important; /* Gold color for stars */
+  margin-right: 2px;
+  font-size: 1rem;
+}
+
+.rating-text {
+  color: var(--text) !important;
+  font-size: 0.9rem;
+}
+
+/* Make sure Font Awesome icons are visible */
+.fa-star,
+.fa-star-half-alt,
+.fa-regular.fa-star {
+  display: inline-block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Ensure the rating container in product cards has proper spacing */
+.card .rating-display {
+  margin-bottom: 12px;
+}
+
+/* Ensure the rating container in the modal has proper styling */
+.modal-body .rating-display {
+  margin-bottom: 15px;
+}
+
+/* Fix for any potential icon visibility issues in dark mode */
+:root.dark-mode .rating-display i {
+  color: #ffc107 !important;
+}
+
+/* Fix for any potential text visibility issues in dark mode */
+:root.dark-mode .rating-text {
+  color: var(--text) !important;
+}
+
 /* Lists in dark mode */
 ul,
 ol {
