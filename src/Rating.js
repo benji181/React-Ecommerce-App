@@ -4,15 +4,25 @@ const Rating = ({ rating }) => {
   const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0)
 
   return (
-    <div className="rating-display d-flex align-items-center">
-      {[...Array(fullStars)].map((_, i) => (
-        <i key={`full-${i}`} className="fa-solid fa-star" style={{ color: "#ffc107" }}></i>
+    <div className="rating-display">
+      {/* Full stars */}
+      {Array.from({ length: fullStars }).map((_, i) => (
+        <span key={`full-${i}`} className="star-icon full-star">
+          ★
+        </span>
       ))}
-      {hasHalfStar && <i className="fa-solid fa-star-half-alt" style={{ color: "#ffc107" }}></i>}
-      {[...Array(emptyStars)].map((_, i) => (
-        <i key={`empty-${i}`} className="fa-regular fa-star" style={{ color: "#ffc107" }}></i>
+
+      {/* Half star */}
+      {hasHalfStar && <span className="star-icon half-star">★</span>}
+
+      {/* Empty stars */}
+      {Array.from({ length: emptyStars }).map((_, i) => (
+        <span key={`empty-${i}`} className="star-icon empty-star">
+          ☆
+        </span>
       ))}
-      <span className="ms-2 rating-text">({rating.toFixed(1)})</span>
+
+      <span className="rating-text">({rating.toFixed(1)})</span>
     </div>
   )
 }

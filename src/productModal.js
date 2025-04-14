@@ -37,7 +37,10 @@ const ProductModal = ({ product, onClose }) => {
                     <strong>Price:</strong> <span className="text-success">${product.price.toFixed(2)}</span>
                   </p>
                   <div className="mb-3">
-                    <strong>Rating:</strong> <Rating rating={product.rating} />
+                    <strong>Rating:</strong>{" "}
+                    <div className="d-inline-block ms-2">
+                      <Rating rating={product.rating} />
+                    </div>
                   </div>
                   <p>
                     <strong>Size:</strong> {product.size}

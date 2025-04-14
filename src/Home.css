@@ -1099,3 +1099,57 @@ span {
     width: 100%;
   }
 }
+/* Rating Component Styles - Using Unicode Stars */
+.rating-display {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.star-icon {
+  font-size: 1.2rem;
+  margin-right: 2px;
+  line-height: 1;
+}
+
+.full-star,
+.half-star {
+  color: #ffc107 !important;
+}
+
+.empty-star {
+  color: #e4e5e9 !important;
+}
+
+.half-star {
+  position: relative;
+  opacity: 0.7;
+}
+
+.rating-text {
+  margin-left: 5px;
+  font-size: 0.9rem;
+  color: var(--text) !important;
+}
+
+/* Ensure rating is visible on all devices */
+@media (max-width: 768px) {
+  .rating-display {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  .star-icon {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    font-size: 1.1rem;
+  }
+
+  .rating-text {
+    display: inline-block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+}

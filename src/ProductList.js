@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 import { useCart } from "./CartContext"
 import Notification from "./Notification"
 import Footer from "./Footer"
-import ProductModal from "./productModal"
+import ProductModal from "./ProductModal"
 import Rating from "./Rating"
 import { useTheme } from "./ThemeContext"
 import "./Home.css"
@@ -126,7 +126,7 @@ const ProductList = () => {
                 <div className="card-body d-flex flex-column">
                   <h5 className="card-title product-title">{product.name}</h5>
                   <p className="card-text product-price">${product.price.toFixed(2)}</p>
-                  <div className="rating-container mb-3">
+                  <div className="rating-container">
                     <Rating rating={product.rating} />
                   </div>
                   <button
