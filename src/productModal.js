@@ -1,9 +1,11 @@
 "use client"
 import Rating from "./Rating"
 import { useCart } from "./CartContext"
+import { useTheme } from "./ThemeContext"
 
 const ProductModal = ({ product, onClose }) => {
   const { addToCart } = useCart()
+  const { isDarkMode } = useTheme()
 
   if (!product) return null
 
@@ -13,17 +15,21 @@ const ProductModal = ({ product, onClose }) => {
   }
 
   return (
-    <div className="modal fade show" onClick={onClose}>
+    <div className="modal fade show product-modal" onClick={onClose}>
       <div className="modal-dialog modal-dialog-centered modal-lg" onClick={(e) => e.stopPropagation()}>
-        <div className="modal-content">
+        <div className="modal-content" data-theme={isDarkMode ? "dark" : "light"}>
           <div className="modal-header">
             <h5 className="modal-title">{product.name}</h5>
             <button type="button" className="btn-close" onClick={onClose}></button>
           </div>
           <div className="modal-body">
             <div className="row">
-              <div className="col-md-6">
-                <img src={product.image || "/placeholder.svg"} alt={product.name} className="img-fluid rounded mb-3" />
+              <div className="col-md-6 mb-4 mb-md-0">
+                <img
+                  src={product.image || "/placeholder.svg"}
+                  alt={product.name}
+                  className="img-fluid rounded mb-3 modal-product-image"
+                />
               </div>
               <div className="col-md-6">
                 <div className="product-details">

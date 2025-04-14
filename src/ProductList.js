@@ -6,7 +6,7 @@ import Notification from "./Notification"
 import Footer from "./Footer"
 import ProductModal from "./productModal"
 import Rating from "./Rating"
-import { useTheme } from "./ThemeContext" // Import the theme context
+import { useTheme } from "./ThemeContext"
 import "./Home.css"
 import "bootstrap/dist/css/bootstrap.min.css"
 
@@ -19,7 +19,7 @@ const ProductList = () => {
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(true)
   const { addToCart } = useCart()
-  const { isDarkMode } = useTheme() // Get the current theme
+  const { isDarkMode } = useTheme()
 
   useEffect(() => {
     setLoading(true)
@@ -89,15 +89,15 @@ const ProductList = () => {
   }
 
   return (
-    <div className="container mt-4">
-      <h1 className="text-center">Product List</h1>
+    <div className="container mt-4 product-container">
+      <h1 className="text-center mb-4">Product List</h1>
       <p className="product-list-subtitle">Shop from the very best of quality leather bags</p>
 
       <div className="row mb-4">
         <div className="col-md-6 offset-md-3">
           <input
             type="text"
-            className="form-control"
+            className="form-control search-input"
             placeholder="Search products by name..."
             value={searchTerm}
             onChange={handleSearchChange}
@@ -106,23 +106,31 @@ const ProductList = () => {
       </div>
 
       {notification && <Notification message={notification} onClose={() => setNotification(null)} />}
-      <div className="row">
+      <div className="row product-grid">
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product) => (
-            <div key={product.id} className="col-md-4 mb-4">
+            <div key={product.id} className="col-12 col-sm-6 col-md-4 mb-4">
               <div
-                className="card"
+                className="card product-card h-100"
                 onClick={() => handleShowDetails(product)}
                 style={{ cursor: "pointer" }}
-                data-theme={isDarkMode ? "dark" : "light"} // Add a data attribute for theme
+                data-theme={isDarkMode ? "dark" : "light"}
               >
-                <img src={product.image || "/placeholder.svg"} alt={product.name} className="card-img-top" />
-                <div className="card-body">
-                  <h5 className="card-title">{product.name}</h5>
-                  <p className="card-text">${product.price.toFixed(2)}</p>
-                  <Rating rating={product.rating} />
+                <div className="card-img-container">
+                  <img
+                    src={product.image || "/placeholder.svg"}
+                    alt={product.name}
+                    className="card-img-top product-image"
+                  />
+                </div>
+                <div className="card-body d-flex flex-column">
+                  <h5 className="card-title product-title">{product.name}</h5>
+                  <p className="card-text product-price">${product.price.toFixed(2)}</p>
+                  <div className="rating-container mb-3">
+                    <Rating rating={product.rating} />
+                  </div>
                   <button
-                    className="btn btn-primary mt-2"
+                    className="btn btn-primary mt-auto add-to-cart-btn"
                     onClick={(e) => {
                       e.stopPropagation()
                       handleAddToCart(product)

@@ -2,10 +2,17 @@
 import { Link } from "react-router-dom"
 import { useCart } from "./CartContext"
 import { useTheme } from "./ThemeContext"
+import { useState } from "react" // Add this import
 
 const Navbar = () => {
   const { cartItems } = useCart()
   const { isDarkMode, toggleTheme } = useTheme()
+  const [isNavExpanded, setIsNavExpanded] = useState(false) // Add state for navbar toggle
+
+  // Toggle navbar function
+  const toggleNav = () => {
+    setIsNavExpanded(!isNavExpanded)
+  }
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light">
@@ -16,52 +23,40 @@ const Navbar = () => {
         <button
           className="navbar-toggler"
           type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
+          onClick={toggleNav} // Add onClick handler
           aria-controls="navbarNav"
-          aria-expanded="false"
+          aria-expanded={isNavExpanded} // Update aria-expanded
           aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
+        <div className={`collapse navbar-collapse ${isNavExpanded ? "show" : ""}`} id="navbarNav">
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              <Link className="nav-link" to="/">
+              <Link className="nav-link" to="/" onClick={() => setIsNavExpanded(false)}>
                 Home
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/products">
+              <Link className="nav-link" to="/products" onClick={() => setIsNavExpanded(false)}>
                 Products
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/cart">
+              <Link className="nav-link" to="/cart" onClick={() => setIsNavExpanded(false)}>
                 Cart ({cartItems.length || 0})
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/checkout">
+              <Link className="nav-link" to="/checkout" onClick={() => setIsNavExpanded(false)}>
                 Checkout
               </Link>
             </li>
-            <li className="nav-item">
+            <li className="nav-item theme-toggle-container">
               <button
                 className="nav-link btn theme-toggle"
                 onClick={toggleTheme}
                 aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  padding: "8px 12px",
-                  borderRadius: "4px",
-                  backgroundColor: isDarkMode ? "#333" : "#f0f0f0",
-                  color: isDarkMode ? "#fff" : "#333",
-                  border: "1px solid",
-                  borderColor: isDarkMode ? "#444" : "#ddd",
-                  marginLeft: "10px",
-                }}
               >
                 {isDarkMode ? (
                   <>
