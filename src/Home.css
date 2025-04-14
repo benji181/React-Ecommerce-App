@@ -11,36 +11,145 @@
   --accent-color: #4caf50;
   --border-color: #e0e0e0;
   --hover-color: #45a049;
+  --input-bg: #ffffff;
+  --input-text: #333333;
+  --modal-overlay: rgba(0, 0, 0, 0.5);
 }
 
 :root.dark-mode {
-  --background: #1a1a1a;
-  --text: #ffffff;
-  --card-bg: #2c2c2c;
-  --card-text: #ffffff;
+  --background: #121212;
+  --text: #f5f5f5;
+  --card-bg: #1e1e1e;
+  --card-text: #f5f5f5;
   --btn-bg: #4caf50; /* Green */
   --btn-text: #ffffff;
-  --navbar-bg: #2c2c2c;
-  --navbar-text: #ffffff;
+  --navbar-bg: #1e1e1e;
+  --navbar-text: #f5f5f5;
   --accent-color: #4caf50;
   --border-color: #444444;
   --hover-color: #45a049;
+  --input-bg: #2c2c2c;
+  --input-text: #f5f5f5;
+  --modal-overlay: rgba(0, 0, 0, 0.7);
 }
 
-body {
-  background-color: var(--background);
-  color: var(--text);
+/* Global dark mode styles - these will apply to everything */
+html,
+body,
+#root {
   transition: background-color 0.5s ease, color 0.5s ease;
 }
 
+/* Light mode */
+:root.light-mode html,
+:root.light-mode body,
+:root.light-mode #root {
+  background-color: #ffffff !important;
+  color: #333333 !important;
+}
+
+/* Dark mode */
+:root.dark-mode html,
+:root.dark-mode body,
+:root.dark-mode #root {
+  background-color: #121212 !important;
+  color: #f5f5f5 !important;
+}
+
+/* Force all elements to inherit theme colors */
+* {
+  transition: background-color 0.5s ease, color 0.5s ease, border-color 0.5s ease;
+}
+
+/* Override Bootstrap defaults */
+.bg-light {
+  background-color: var(--card-bg) !important;
+}
+
+.bg-dark {
+  background-color: var(--navbar-bg) !important;
+}
+
+.text-dark {
+  color: var(--text) !important;
+}
+
+.border {
+  border-color: var(--border-color) !important;
+}
+
+/* Form controls */
+input,
+select,
+textarea,
+.form-control {
+  background-color: var(--input-bg) !important;
+  color: var(--input-text) !important;
+  border-color: var(--border-color) !important;
+}
+
+input::placeholder,
+.form-control::placeholder {
+  color: var(--input-text) !important;
+  opacity: 0.7;
+}
+
+/* Buttons */
+.btn-secondary {
+  background-color: #6c757d !important;
+  border-color: #6c757d !important;
+}
+
+.btn-danger {
+  background-color: #dc3545 !important;
+  border-color: #dc3545 !important;
+}
+
+/* Add these specific rules for product cards to ensure they change in dark mode */
+.card {
+  background-color: var(--card-bg) !important;
+  color: var(--card-text) !important;
+  border: 1px solid var(--border-color) !important;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease, color 0.5s ease !important;
+}
+
+.card-body {
+  background-color: var(--card-bg) !important;
+  color: var(--card-text) !important;
+}
+
+.card-title,
+.card-text {
+  color: var(--card-text) !important;
+}
+
+/* Make sure Bootstrap isn't overriding our styles */
+.bg-white {
+  background-color: var(--card-bg) !important;
+}
+
+.text-dark {
+  color: var(--card-text) !important;
+}
+
+/* Ensure product list container inherits theme */
 .container {
+  background-color: var(--background) !important;
+  color: var(--text) !important;
   margin-top: 20px;
+}
+
+/* Rest of your CSS remains the same */
+body {
+  background-color: var(--background) !important;
+  color: var(--text) !important;
+  min-height: 100vh;
 }
 
 /* Navbar */
 .navbar {
-  background-color: var(--navbar-bg);
-  color: var(--navbar-text);
+  background-color: var(--navbar-bg) !important;
+  color: var(--navbar-text) !important;
   transition: background-color 0.5s ease;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
@@ -52,7 +161,7 @@ body {
 }
 
 .navbar-light .navbar-nav .nav-link {
-  color: var(--navbar-text);
+  color: var(--navbar-text) !important;
 }
 
 .nav-link:hover {
@@ -74,23 +183,6 @@ body {
 }
 
 /* Card Animations (ProductList) */
-.card {
-  background-color: var(--card-bg);
-  color: var(--card-text);
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease, color 0.5s ease;
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeIn 0.5s ease forwards;
-  overflow: hidden;
-}
-
-.card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-}
-
 .card img {
   transition: transform 0.5s ease;
 }
@@ -124,21 +216,21 @@ body {
 
 /* Button */
 .btn-primary {
-  background-color: var(--btn-bg);
-  color: var(--btn-text);
+  background-color: var(--btn-bg) !important;
+  color: var(--btn-text) !important;
   border: none;
   transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .btn-primary:hover {
-  background-color: var(--hover-color);
+  background-color: var(--hover-color) !important;
   transform: translateY(-2px);
 }
 
 /* Modal */
 .modal-content {
-  background-color: var(--card-bg);
-  color: var(--card-text);
+  background-color: var(--card-bg) !important;
+  color: var(--card-text) !important;
   transition: background-color 0.5s ease, color 0.5s ease;
   border-radius: 10px;
   overflow: hidden;
@@ -146,7 +238,7 @@ body {
 
 .modal.fade.show {
   display: block;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--modal-overlay);
   opacity: 0;
   transform: translateY(-50px);
   animation: slideIn 0.3s ease forwards;
@@ -161,7 +253,14 @@ body {
 
 .modal-header,
 .modal-footer {
-  border-color: var(--border-color);
+  border-color: var(--border-color) !important;
+  background-color: var(--card-bg) !important;
+  color: var(--card-text) !important;
+}
+
+.modal-body {
+  background-color: var(--card-bg) !important;
+  color: var(--card-text) !important;
 }
 
 .modal-body img {
@@ -175,12 +274,12 @@ body {
 
 /* Cart */
 .cart-item {
-  background-color: var(--card-bg);
-  color: var(--card-text);
+  background-color: var(--card-bg) !important;
+  color: var(--card-text) !important;
   padding: 15px;
   margin-bottom: 10px;
   border-radius: 8px;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border-color) !important;
   opacity: 0;
   transform: translateX(-20px);
   animation: slideInLeft 0.3s ease forwards;
@@ -215,8 +314,8 @@ body {
 
 /* Checkout */
 .checkout-container {
-  background-color: var(--card-bg);
-  color: var(--card-text);
+  background-color: var(--card-bg) !important;
+  color: var(--card-text) !important;
   transition: background-color 0.5s ease, color 0.5s ease;
   padding: 20px;
   border-radius: 10px;
@@ -224,8 +323,8 @@ body {
 }
 
 .checkout-button {
-  background-color: var(--btn-bg);
-  color: var(--btn-text);
+  background-color: var(--btn-bg) !important;
+  color: var(--btn-text) !important;
   border: none;
   padding: 10px 20px;
   border-radius: 5px;
@@ -234,28 +333,28 @@ body {
 }
 
 .checkout-button:hover {
-  background-color: var(--hover-color);
+  background-color: var(--hover-color) !important;
   transform: translateY(-2px);
 }
 
 /* Footer */
 .footer {
-  background-color: var(--card-bg);
-  color: var(--card-text);
+  background-color: var(--card-bg) !important;
+  color: var(--card-text) !important;
   transition: background-color 0.5s ease, color 0.5s ease;
   padding: 20px 0;
   margin-top: 50px;
-  border-top: 1px solid var(--border-color);
+  border-top: 1px solid var(--border-color) !important;
 }
 
 .footer-link {
-  color: var(--accent-color);
+  color: var(--accent-color) !important;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 .footer-link:hover {
-  color: var(--hover-color);
+  color: var(--hover-color) !important;
   text-decoration: underline;
 }
 
@@ -263,8 +362,8 @@ body {
 .home-container {
   text-align: center;
   padding: 50px;
-  background-color: var(--background);
-  color: var(--text);
+  background-color: var(--background) !important;
+  color: var(--text) !important;
   transition: background-color 0.5s ease, color 0.5s ease;
 }
 
@@ -272,6 +371,7 @@ body {
   font-size: 2.5rem;
   margin-bottom: 20px;
   animation: fadeInUp 1s ease;
+  color: var(--text) !important;
 }
 
 @keyframes fadeInUp {
@@ -290,13 +390,14 @@ body {
   margin-bottom: 40px;
   animation: fadeInUp 1s ease 0.2s forwards;
   opacity: 0;
+  color: var(--text) !important;
 }
 
 .home-button {
   padding: 12px 24px;
   font-size: 1rem;
-  color: var(--btn-text);
-  background-color: var(--btn-bg);
+  color: var(--btn-text) !important;
+  background-color: var(--btn-bg) !important;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -306,7 +407,7 @@ body {
 }
 
 .home-button:hover {
-  background-color: var(--hover-color);
+  background-color: var(--hover-color) !important;
   transform: translateY(-5px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
@@ -316,8 +417,8 @@ body {
   opacity: 0;
   transform: translateY(20px);
   animation: fadeIn 0.5s ease forwards;
-  background-color: var(--card-bg);
-  color: var(--card-text);
+  background-color: var(--card-bg) !important;
+  color: var(--card-text) !important;
   border-radius: 10px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease, color 0.5s ease;
@@ -357,10 +458,18 @@ body {
 }
 
 /* Additional Home Styles */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--text) !important;
+}
+
 h2 {
   margin-top: 30px;
   font-size: 2em;
-  color: var(--text);
   position: relative;
   padding-bottom: 10px;
 }
@@ -389,8 +498,8 @@ h2:after {
   margin-bottom: 40px;
   padding: 30px;
   border-radius: 10px;
-  background-color: var(--card-bg);
-  color: var(--card-text);
+  background-color: var(--card-bg) !important;
+  color: var(--card-text) !important;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
   transition: background-color 0.5s ease, color 0.5s ease, transform 0.3s ease;
 }
@@ -406,12 +515,13 @@ h2:after {
 .product-item,
 .category-item {
   padding: 15px;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border-color) !important;
   border-radius: 8px;
   width: 30%;
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  background-color: var(--background);
+  background-color: var(--background) !important;
+  color: var(--text) !important;
 }
 
 .product-item:hover,
@@ -423,22 +533,22 @@ h2:after {
 .newsletter-signup input {
   padding: 10px;
   margin-right: 10px;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--border-color) !important;
   border-radius: 5px;
-  background-color: var(--background);
-  color: var(--text);
+  background-color: var(--input-bg) !important;
+  color: var(--input-text) !important;
   transition: border-color 0.3s ease;
 }
 
 .newsletter-signup input:focus {
-  border-color: var(--accent-color);
+  border-color: var(--accent-color) !important;
   outline: none;
 }
 
 .newsletter-signup button {
   padding: 10px 20px;
-  background-color: var(--btn-bg);
-  color: var(--btn-text);
+  background-color: var(--btn-bg) !important;
+  color: var(--btn-text) !important;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -446,7 +556,7 @@ h2:after {
 }
 
 .newsletter-signup button:hover {
-  background-color: var(--hover-color);
+  background-color: var(--hover-color) !important;
   transform: translateY(-2px);
 }
 
@@ -457,8 +567,9 @@ h2:after {
 .testimonial-list blockquote {
   margin: 15px 0;
   padding: 15px;
-  border-left: 5px solid var(--accent-color);
-  background-color: var(--background);
+  border-left: 5px solid var(--accent-color) !important;
+  background-color: var(--background) !important;
+  color: var(--text) !important;
   border-radius: 5px;
   transition: transform 0.3s ease;
 }
@@ -469,7 +580,7 @@ h2:after {
 
 .social-media a {
   margin: 0 15px;
-  color: var(--accent-color);
+  color: var(--accent-color) !important;
   text-decoration: none;
   font-size: 1.2rem;
   transition: color 0.3s ease, transform 0.3s ease;
@@ -477,13 +588,13 @@ h2:after {
 }
 
 .social-media a:hover {
-  color: var(--hover-color);
+  color: var(--hover-color) !important;
   transform: translateY(-3px);
 }
 
 .call-to-action {
-  background-color: var(--accent-color);
-  color: white;
+  background-color: var(--accent-color) !important;
+  color: white !important;
   padding: 30px;
   border-radius: 10px;
   text-align: center;
@@ -491,8 +602,8 @@ h2:after {
 
 .call-to-action button {
   padding: 12px 24px;
-  background-color: white;
-  color: var(--accent-color);
+  background-color: white !important;
+  color: var(--accent-color) !important;
   border: none;
   border-radius: 5px;
   cursor: pointer;
@@ -509,14 +620,14 @@ h2:after {
 .product-list-subtitle {
   text-align: center;
   margin-bottom: 30px;
-  color: var(--text);
+  color: var(--text) !important;
   font-style: italic;
 }
 
 /* Notification */
 .alert-success {
-  background-color: var(--accent-color);
-  color: white;
+  background-color: var(--accent-color) !important;
+  color: white !important;
   border: none;
   border-radius: 8px;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
@@ -539,4 +650,152 @@ h2:after {
 .fa-star-half-alt {
   color: #ffd700 !important; /* Gold color for stars */
   margin-right: 2px;
+}
+
+/* Lists in dark mode */
+ul,
+ol {
+  color: var(--text) !important;
+}
+
+li {
+  color: var(--text) !important;
+}
+
+/* Tables in dark mode */
+table {
+  color: var(--text) !important;
+  background-color: var(--card-bg) !important;
+}
+
+th,
+td {
+  border-color: var(--border-color) !important;
+  color: var(--text) !important;
+}
+
+/* Code blocks in dark mode */
+code,
+pre {
+  background-color: var(--card-bg) !important;
+  color: var(--text) !important;
+  border-color: var(--border-color) !important;
+}
+
+/* Bootstrap overrides for dark mode */
+.navbar-light .navbar-toggler-icon {
+  background-color: var(--navbar-text) !important;
+}
+
+.dropdown-menu {
+  background-color: var(--card-bg) !important;
+  color: var(--text) !important;
+  border-color: var(--border-color) !important;
+}
+
+.dropdown-item {
+  color: var(--text) !important;
+}
+
+.dropdown-item:hover {
+  background-color: var(--accent-color) !important;
+  color: white !important;
+}
+
+/* Fix for Bootstrap's default focus styles */
+.form-control:focus {
+  background-color: var(--input-bg) !important;
+  color: var(--input-text) !important;
+  border-color: var(--accent-color) !important;
+  box-shadow: 0 0 0 0.25rem rgba(76, 175, 80, 0.25) !important;
+}
+
+/* Fix for Bootstrap's close button */
+.btn-close {
+  filter: invert(var(--invert-close-btn));
+}
+
+:root.light-mode {
+  --invert-close-btn: 0;
+}
+
+:root.dark-mode {
+  --invert-close-btn: 1;
+}
+
+/* Specific dark mode overrides */
+:root.dark-mode .card {
+  background-color: #1e1e1e !important;
+  color: #f5f5f5 !important;
+  border-color: #444 !important;
+}
+
+:root.dark-mode .card-body {
+  background-color: #1e1e1e !important;
+}
+
+:root.dark-mode .card-title,
+:root.dark-mode .card-text {
+  color: #f5f5f5 !important;
+}
+
+/* Force Bootstrap to respect our dark mode */
+.card[data-theme="dark"] {
+  background-color: #1e1e1e !important;
+  color: #f5f5f5 !important;
+}
+
+.card[data-theme="dark"] .card-body {
+  background-color: #1e1e1e !important;
+  color: #f5f5f5 !important;
+}
+
+.card[data-theme="dark"] .card-title,
+.card[data-theme="dark"] .card-text {
+  color: #f5f5f5 !important;
+}
+
+/* Make sure the product list container has the correct background */
+.container {
+  background-color: var(--background) !important;
+  color: var(--text) !important;
+  min-height: 100vh;
+}
+
+/* Ensure all paragraphs have the correct text color */
+p {
+  color: var(--text) !important;
+}
+
+/* Ensure all spans have the correct text color */
+span {
+  color: var(--text) !important;
+}
+
+/* Override any Bootstrap background classes */
+.bg-white,
+.bg-light,
+.bg-body {
+  background-color: var(--background) !important;
+}
+
+/* Override any Bootstrap text color classes */
+.text-dark,
+.text-body {
+  color: var(--text) !important;
+}
+
+/* Ensure the app container covers the entire viewport */
+.app-container {
+  min-height: 100vh;
+  background-color: var(--background) !important;
+}
+
+/* Override any inline styles that might be applied */
+[style*="background-color"] {
+  background-color: var(--background) !important;
+}
+
+[style*="color"] {
+  color: var(--text) !important;
 }

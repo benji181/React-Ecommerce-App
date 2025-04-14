@@ -6,6 +6,7 @@ import Notification from "./Notification"
 import Footer from "./Footer"
 import ProductModal from "./ProductModal"
 import Rating from "./Rating"
+import { useTheme } from "./ThemeContext" // Import the theme context
 import "./Home.css"
 import "bootstrap/dist/css/bootstrap.min.css"
 
@@ -18,6 +19,7 @@ const ProductList = () => {
   const [error, setError] = useState(null)
   const [loading, setLoading] = useState(true)
   const { addToCart } = useCart()
+  const { isDarkMode } = useTheme() // Get the current theme
 
   useEffect(() => {
     setLoading(true)
@@ -108,7 +110,12 @@ const ProductList = () => {
         {filteredProducts.length > 0 ? (
           filteredProducts.map((product) => (
             <div key={product.id} className="col-md-4 mb-4">
-              <div className="card" onClick={() => handleShowDetails(product)} style={{ cursor: "pointer" }}>
+              <div
+                className="card"
+                onClick={() => handleShowDetails(product)}
+                style={{ cursor: "pointer" }}
+                data-theme={isDarkMode ? "dark" : "light"} // Add a data attribute for theme
+              >
                 <img src={product.image || "/placeholder.svg"} alt={product.name} className="card-img-top" />
                 <div className="card-body">
                   <h5 className="card-title">{product.name}</h5>

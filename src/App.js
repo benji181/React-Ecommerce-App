@@ -14,13 +14,17 @@ function App() {
     <ThemeProvider>
       <CartProvider>
         <Router>
-          <Navbar />
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/products" element={<ProductList />} /> {/* Use /products instead of /ProductsList */}
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/checkout" element={<Checkout />} />
-          </Routes>
+          <div className="app-container">
+            <Navbar />
+            <div className="main-content">
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/products" element={<ProductList />} />
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/checkout" element={<Checkout />} />
+              </Routes>
+            </div>
+          </div>
         </Router>
       </CartProvider>
     </ThemeProvider>

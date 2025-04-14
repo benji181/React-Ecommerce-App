@@ -51,8 +51,27 @@ const Navbar = () => {
                 className="nav-link btn theme-toggle"
                 onClick={toggleTheme}
                 aria-label={isDarkMode ? "Switch to light mode" : "Switch to dark mode"}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  padding: "8px 12px",
+                  borderRadius: "4px",
+                  backgroundColor: isDarkMode ? "#333" : "#f0f0f0",
+                  color: isDarkMode ? "#fff" : "#333",
+                  border: "1px solid",
+                  borderColor: isDarkMode ? "#444" : "#ddd",
+                  marginLeft: "10px",
+                }}
               >
-                {isDarkMode ? <span>☀️ Light Mode</span> : <span>🌙 Dark Mode</span>}
+                {isDarkMode ? (
+                  <>
+                    <span style={{ marginRight: "5px" }}>☀️</span> Light Mode
+                  </>
+                ) : (
+                  <>
+                    <span style={{ marginRight: "5px" }}>🌙</span> Dark Mode
+                  </>
+                )}
               </button>
             </li>
           </ul>
